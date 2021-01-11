@@ -766,6 +766,9 @@ int32_t FindEntry(const ZipArchiveHandle archive, const ZipString& entryName, Zi
     ALOGV("Zip: Could not find entry %.*s", entryName.name_length, entryName.name);
     return ent;
   }
+  else if (data == nullptr) {
+    return 0;
+  }
   return FindEntry(archive, ent, data);
 }
 
