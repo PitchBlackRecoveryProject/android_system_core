@@ -192,11 +192,13 @@ bool CompareFlags(FstabEntry::FsMgrFlags& lhs, FstabEntry::FsMgrFlags& rhs) {
            lhs.nonremovable == rhs.nonremovable &&
            lhs.vold_managed == rhs.vold_managed &&
            lhs.recovery_only == rhs.recovery_only &&
+           lhs.force_crypt == rhs.force_crypt &&
            lhs.no_emulated_sd == rhs.no_emulated_sd &&
            lhs.no_trim == rhs.no_trim &&
            lhs.file_encryption == rhs.file_encryption &&
            lhs.formattable == rhs.formattable &&
            lhs.slot_select == rhs.slot_select &&
+           lhs.force_fde_or_fbe == rhs.force_fde_or_fbe &&
            lhs.late_mount == rhs.late_mount &&
            lhs.no_fail == rhs.no_fail &&
            lhs.quota == rhs.quota &&
@@ -499,6 +501,7 @@ source none1       swap   defaults      fileencryption=,keydirectory=,length=,sw
         FstabEntry::FsMgrFlags flags = {};
         EXPECT_TRUE(CompareFlags(flags, entry->fs_mgr_flags));
     }
+    EXPECT_EQ("", entry->key_loc);
     EXPECT_EQ("", entry->metadata_key_dir);
     EXPECT_EQ(0, entry->length);
     EXPECT_EQ("", entry->label);
@@ -521,6 +524,7 @@ source none1       swap   defaults      fileencryption=,keydirectory=,length=,sw
         flags.avb = true;
         EXPECT_TRUE(CompareFlags(flags, entry->fs_mgr_flags));
     }
+    EXPECT_EQ("", entry->key_loc);
     EXPECT_EQ("", entry->metadata_key_dir);
     EXPECT_EQ(0, entry->length);
     EXPECT_EQ("", entry->label);
